@@ -1,0 +1,27 @@
+{
+  "name": "get-git-blobs",
+  "version": "0.0.1",
+  "description": "Download git blobs to improve availability",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "ssb"
+  ],
+  "author": "Anders Rune Jensen <arj03@protonmail.ch>",
+  "license": "Beerware",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "https://github.com/arj03/get-git-blobs",
+  "dependencies": {
+    "pull-paramap": "^1.2.2",
+    "pull-stream": "^3.6.13",
+    "ssb-client": "^4.7.7"
+  }
+}
