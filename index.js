@@ -10,7 +10,7 @@ require('ssb-client')((err, sbot) => {
   (
     sbot.messagesByType({type:"git-update"}),
     paramap((msg, cb) => {
-      console.log("getting message")
+      console.log("checking message:", msg.key)
 
       var links = []
 
@@ -34,13 +34,18 @@ require('ssb-client')((err, sbot) => {
       (
         pull.values(links),
         paramap((linkObj, cb) => {
-          console.log("blob want", linkObj.link)
-          sbot.blobs.want(linkObj.link, cb)
+          sbot.blobs.size(linkObj.link, (err, size) => {
+            if (size == null) {
+              console.log("blob want", linkObj.link)
+              sbot.blobs.want(linkObj.link, cb)
+            } else // all good
+              cb()
+          })
         }, 5),
-        pull.drain(() => {}, cb)
+        pull.drain(null, cb)
       )
     }, 1),
-    pull.collect((err) => {
+    pull.drain(null, (err) => {
       if (err) console.err(err)
       console.log("done")
       sbot.close()
