@@ -37,7 +37,23 @@ require('ssb-client')((err, sbot) => {
           sbot.blobs.size(linkObj.link, (err, size) => {
             if (size == null) {
               console.log("blob want", linkObj.link)
-              sbot.blobs.want(linkObj.link, cb)
+
+              let gotBlob = false
+              sbot.blobs.want(linkObj.link, () => {
+                gotBlob = true
+                cb()
+              })
+
+              // no default timeout for blobs.want
+              // the want still exists after this, but we just don't
+              // want to wait around for it
+              setTimeout(() => {
+                if (!gotBlob) {
+                  console.log("timeout getting blob")
+                  cb()
+                }
+              }, 30*1000)
+
             } else // all good
               cb()
           })
