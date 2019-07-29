@@ -1,4 +1,4 @@
-# get-git-blobs
+# ssb-git blob gobbler
 
-This is meant to run as a node script on a pub to download git blobs
-and thus make them more available to the whole network.
+This is meant to run in cron as a script to download git blobs and
+thus make them more available to the whole network.
